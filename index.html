@@ -13,21 +13,25 @@ and open the template in the editor.
         <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <div id = "navbar">
+        <header>
+        <img id = "logo" src="img/BurgerLogo.png" alt="Burger Bar Logo" title="Burger Bar">
             <h1>Burger Bar-The Best Burgers in Texas</h1>
-            <img id = "logo">
-            
-            <form id = "login">
-                <h2 id = "username">Username</h2>
-                <input name="Username" type="text" value="" maxlength="20" id="usernamebox" />
-                <h2 id="password">Password:</h1>
-                <input name="Password" type="password" id="passwordtxt" />
-                <h3 id="forgot">Forgot Password</h1>
-                <h3 id="register">Register</h1>
-                <input type="submit" value="Login">
+            <div id = "signIn" class="rightHeader">
+            <form id="signInArea" name = "signIn" action = "#" method = "post">
+                <input id="signInEmail" type="email" name="email" placeholder="Email" title="Must be a valid email address." required>
+                <input id="signInPass" type="password" name="password" placeholder="Password" title="Must be at least 8 characters" required pattern=".{8,}">
+                <h3 id="forgot">Forgot Password</h3>
+                <h3 id="register">Register</h3>
+                <input class="button" type="submit" value="Sign In">
             </form>
-            
         </div>
+        </header>    
+        <!--    
+        <div id = "signedIn" class="rightHeader">
+            <h2>Welcome!</h2>
+            <a href="index.html" id="signOut">Sign Out</a>
+        </div>
+        -->
         <script src="js/main.js"></script>
     </body>
 </html>
