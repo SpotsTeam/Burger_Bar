@@ -15,9 +15,9 @@
             <form id="signInArea" name = "signIn" action = "#" method = "post">
                 <input id="signInEmail" type="email" name="email" placeholder="Email" title="Must be a valid email address." required>
                 <input id="signInPass" type="password" name="password" placeholder="Password" title="Must be at least 8 characters" required pattern=".{8,}">
-                <h3 id="forgot">Forgot Password</h3>
-                <h3 id="register">Register</h3>
-                <input class="button" type="submit" value="Sign In">
+                <input class="button" type="submit" value="Forgot Password" id="forgot">
+                <input class="button" type="submit" value="Register" id="register">
+                <input class="button" type="submit" value="Sign In" id="signIn">
             </form>
         </div>
         </header>    
@@ -28,44 +28,44 @@
         </div>
         -->
         <div id = "meats">
-            <input type="radio" name="meat" value="1/3 lb. Beef">1/3 lb. Beef
-            <input type="radio" name="meat" value="1/2 lb. Beef">1/2 lb. Beef
-            <input type="radio" name="meat" value="Turkey">Turkey
-            <input type="radio" name="meat" value="Veggie">Veggie
+            <input type="radio" name="meat" value="1/3 lb. Beef" id="ThirdBeef">1/3 lb. Beef
+            <input type="radio" name="meat" value="1/2 lb. Beef" id="HalfBeef">1/2 lb. Beef
+            <input type="radio" name="meat" value="Turkey" id="Turkey">Turkey
+            <input type="radio" name="meat" value="Veggie" id="Veggie">Veggie
         </div>
         <div id = "buns">
-            <input type="radio" name="bun" value="White">White
-            <input type="radio" name="bun" value="Wheat">Wheat
-            <input type="radio" name="bun" value="Texas Toast">Texas Toast
+            <input type="radio" name="bun" value="White" id="White">White
+            <input type="radio" name="bun" value="Wheat" id="Wheat">Wheat
+            <input type="radio" name="bun" value="Texas Toast" id="TexasToast">Texas Toast
         </div>
         <div id = "cheeses">
-            <input type="radio" name="cheese" value="Cheddar">Cheddar
-            <input type="radio" name="cheese" value="American">American
-            <input type="radio" name="cheese" value="Swiss">Swiss
-            <input type="radio" name="cheese" value="None">None
+            <input type="radio" name="cheese" value="Cheddar" id="Cheddar">Cheddar
+            <input type="radio" name="cheese" value="American" id="American">American
+            <input type="radio" name="cheese" value="Swiss" id="Swiss">Swiss
+            <input type="radio" name="cheese" value="None" id="None">None
         </div>
         <div id = "toppings">
-            <input type="checkbox" name="topping" value="Tomatoes">Tomatoes
-            <input type="checkbox" name="topping" value="Lettuce">Lettuce
-            <input type="checkbox" name="topping" value="Onions">Onions
-            <input type="checkbox" name="topping" value="Pickles">Pickles
-            <input type="checkbox" name="topping" value="Bacon">Bacon
-            <input type="checkbox" name="topping" value="Red onion">Red onion
-            <input type="checkbox" name="topping" value="Mushrooms">Mushrooms
-            <input type="checkbox" name="topping" value="Jalapenos">Jalapenos
-            <input type="checkbox" name="topping" value="None">None
+            <input type="checkbox" name="topping" value="Tomatoes" id="Tomatoes">Tomatoes
+            <input type="checkbox" name="topping" value="Lettuce" id="Lettuce">Lettuce
+            <input type="checkbox" name="topping" value="Onions" id="Onions">Onions
+            <input type="checkbox" name="topping" value="Pickles" id="Pickles">Pickles
+            <input type="checkbox" name="topping" value="Bacon" id="Bacon">Bacon
+            <input type="checkbox" name="topping" value="Red onion" id="RedOnion">Red onion
+            <input type="checkbox" name="topping" value="Mushrooms" id="Mushrooms">Mushrooms
+            <input type="checkbox" name="topping" value="Jalapenos" id="Jalapenos">Jalapenos
+            <input type="checkbox" name="topping" value="None" id="None">None
         </div>
         <div id = "sauces">
-            <input type="checkbox" name="sauce" value="Ketchup">Ketchup
-            <input type="checkbox" name="sauce" value="Mustard">Mustard
-            <input type="checkbox" name="sauce" value="Mayonnaise">Mayonnaise
-            <input type="checkbox" name="sauces" value="BBQ">BBQ
+            <input type="checkbox" name="sauce" value="Ketchup" id="Ketchup">Ketchup
+            <input type="checkbox" name="sauce" value="Mustard" id="Mustard">Mustard
+            <input type="checkbox" name="sauce" value="Mayonnaise" id="Mayonnaise">Mayonnaise
+            <input type="checkbox" name="sauces" value="BBQ" id="BBQ">BBQ
         </div>
         <div id = "sides">
-            <input type="radio" name="side" value="French Fries" title="French Fries">French Fries
-            <input type="radio" name="side" value="Tater Tots" title="Tater Tots">Tater Tots
-            <input type="radio" name="side" value="Onion rings" title="Onion Rings">Onion Rings
-            <input type="radio" name="side" value="None" title="None">None
+            <input type="radio" name="side" value="French Fries" id="FrenchFries" title="French Fries">French Fries
+            <input type="radio" name="side" value="Tater Tots" id="TaterTots" title="Tater Tots">Tater Tots
+            <input type="radio" name="side" value="Onion rings" id="OnionRings" title="Onion Rings">Onion Rings
+            <input type="radio" name="side" value="None" id="None" title="None">None
         </div>
         
         <div id = "orderButtons">
