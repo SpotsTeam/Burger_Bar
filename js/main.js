@@ -13,21 +13,8 @@
 //}
 
 
-//document.getElementById("signInEmail").removeAttribute("required");
-//document.getElementById("signInPass").removeAttribute("required");
-
-console.log("HI");
-$(document).ready(function() {
-    $("form").submit(function() { 
-    var val = $("input[type=submit][clicked=true]").val()
-    if(val === "register"){
-    	alert("true");
-    } else {
-    	alert("false");
-    }
-    // DO WORK
-});
-
+document.getElementById("signInEmail").removeAttribute("required");
+document.getElementById("signInPass").removeAttribute("required");
 
 //Select type of meat.
 var meat;
