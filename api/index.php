@@ -160,7 +160,7 @@ $app->get('/getLastOrder/:userID', function ($id) {
     $quantityForBurger2 = 5; 
     $burger2 = array("components"=>$componentsForBurger1,"quantity"=>$quantityForBurger2);
 
-    $burgers = array($burger1,$burger2);
+    $burgers = array("1" => $burger1, "2" => $burger2);
     echo json_encode($burgers);
 });
 
