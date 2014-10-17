@@ -5,6 +5,10 @@ $app->get('/hello/:name', function ($name) {
     echo "Hello, $name";
 });
 
+/*$mysqli = new mysqli("localhost", "root", "root", "burgerDB");
+if ($mysqli->connect_errno)
+    die("Connection failed: " . $mysqli->connect_error);*/
+
 $app->get('/getMeats', function () {
 	$meats = '{
 		"meats": [
@@ -151,17 +155,35 @@ $app->get('/getSides', function () {
 
 });
 
-$app->get('/getLastOrder/:userID', function ($id) {
-    $componentsForBurger1 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Bacon","French fries");
+$app->get('/getLastOrder/:userID', function ($id) { //unfinished don't call this
+    global $mysqli;
+    $orderList=$mysqli->query("SELECT idOrder FROM order WHERE id=".$id);
+    $largestID=0;
+    for($i=0; $i<sizeOf($orderList); $i++){ //find the most recent order
+        if($orderList[$i]>$largestID){
+            $largestID=$orderList[$i];
+        }
+    }
+    //get list of burgers in last order and create list of components of each burger
+    $burgerList=$mysqli->query("SELECT idBurger FROM Burger Where Order_idOrder = ".largestID);
+    for($i=0; $i<sizeOf($burgerList); $i++){
+        $theQuery="SELECT BurgerComponent_idBurgerComponent FROM Burger_has_BurgerComponent WHERE Burger_idBurger=".$burgerList[$i];
+        $burgerComp=$mysqli->query($theQuery);
+        //under construction
+
+    }
+    /*$componentsForBurger1 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Bacon","French fries");
     $quantityForBurger1 = 1;
     $burger1 = array("components"=>$componentsForBurger1,"quantity"=>$quantityForBurger1);
+    $query = "select idOrder from order";
+    $result= mysql_query($query);
 
     $componentsForBurger2 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Mustard","Mayonnaise","Bacon");
     $quantityForBurger2 = 5; 
     $burger2 = array("components"=>$componentsForBurger1,"quantity"=>$quantityForBurger2);
 
     $burgers = array("1" => $burger1, "2" => $burger2);
-    echo json_encode($burgers);
+    echo json_encode($burgers);*/
 });
 
 $app->post('/createUserAccount', function () {
