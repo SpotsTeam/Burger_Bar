@@ -11,10 +11,6 @@
 //if(request.status === 200){
 //    var json = JSON.parse(request.responseText);
 //}
-
-document.getElementById("signInEmail").removeAttribute("required");
-document.getElementById("signInPass").removeAttribute("required");
-
 var submit;
 
 var reply_click = function(){
@@ -73,7 +69,6 @@ function selectBun(){
 	}
 }
 
-
 //Select type of cheese.
 var cheese;
 var cheeses = document.getElementsByName("cheese");
@@ -90,6 +85,36 @@ function selectCheese(){
 		cheese = document.getElementById('Swiss').value;
 	}else if(document.getElementById('None').checked) {
 		cheese = document.getElementById('None').value;
+	}
+}
+
+//Select toppings.
+var toppingsSelected = new Array();
+var toppings = document.getElementsByName("topping");
+for (var i = 0; i < toppings.length; ++i) {
+  var t = toppings[i];
+  t.addEventListener("click", selectToppings, false);
+}
+function selectToppings(){
+	for (var i = 0; i < toppings.length; ++i) {
+	  if(toppings[i].checked){
+	  	toppingsSelected.push(toppings[i]);
+	  }
+	}
+}
+
+//Select toppings.
+var saucesSelected = new Array();
+var sauces = document.getElementsByName("sauce");
+for (var i = 0; i < sauces.length; ++i) {
+  var s = sauces[i];
+  t.addEventListener("click", selectSauces, false);
+}
+function selectSauces(){
+	for (var i = 0; i < sauces.length; ++i) {
+	  if(sauces[i].checked){
+	  	saucesSelected.push(sauces[i]);
+	  }
 	}
 }
 
