@@ -31,7 +31,8 @@ header{
 }
 
 body{
-    background-image: url("localhost/BurgerBar/img/background.gif");
+    background-image: url("img/Background.gif"); 
+    background-size: cover;
 }
 
 #signIn {
@@ -43,7 +44,7 @@ body{
 }
 
 #MenuItems{
-    width: 80%;
+    width: 85%;
     float: left;
     
     
@@ -57,4 +58,11 @@ body{
 #OrderList{
     float: right;
     
+}
+
+.MenuPics{
+    height:auto; 
+    width:auto; 
+    max-width:100px; 
+    max-height:100px;
 }
