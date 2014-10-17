@@ -1,16 +1,15 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-//var url = "http://lyle.smu.edu/~jmmurphy/cse3345/http/menu.json";
-//var request = new XMLHttpRequest();
-//request.open('GET', url, false);
-//request.send();
 
+<<<<<<< HEAD
 //if(request.status === 200){
 //    var json = JSON.parse(request.responseText);
 //}
+=======
+
+document.getElementById("signInEmail").removeAttribute("required");
+document.getElementById("signInPass").removeAttribute("required");
+
+var submit;
+>>>>>>> 6f6d3cbfbe5d00fade30b2e9784b7e54e1ee08a4
 
 
 document.getElementById("signInEmail").removeAttribute("required");
@@ -52,6 +51,7 @@ function selectBun(){
 	}
 }
 
+
 //Select type of cheese.
 var cheese;
 var cheeses = document.getElementsByName("cheese");
@@ -68,36 +68,6 @@ function selectCheese(){
 		cheese = document.getElementById('Swiss').value;
 	}else if(document.getElementById('None').checked) {
 		cheese = document.getElementById('None').value;
-	}
-}
-
-//Select toppings.
-var toppingsSelected = new Array();
-var toppings = document.getElementsByName("topping");
-for (var i = 0; i < toppings.length; ++i) {
-  var t = toppings[i];
-  t.addEventListener("click", selectToppings, false);
-}
-function selectToppings(){
-	for (var i = 0; i < toppings.length; ++i) {
-	  if(toppings[i].checked){
-	  	toppingsSelected.push(toppings[i]);
-	  }
-	}
-}
-
-//Select toppings.
-var saucesSelected = new Array();
-var sauces = document.getElementsByName("sauce");
-for (var i = 0; i < sauces.length; ++i) {
-  var s = sauces[i];
-  t.addEventListener("click", selectSauces, false);
-}
-function selectSauces(){
-	for (var i = 0; i < sauces.length; ++i) {
-	  if(sauces[i].checked){
-	  	saucesSelected.push(sauces[i]);
-	  }
 	}
 }
 
