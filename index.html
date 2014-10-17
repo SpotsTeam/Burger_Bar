@@ -19,7 +19,6 @@
             <form id="signInArea" name = "signIn" action = "#" method = "post">
                 <input id="signInEmail" type="email" name="email" placeholder="Email" title="Must be a valid email address." required>
                 <input id="signInPass" type="password" name="password" placeholder="Password" title="Must be at least 8 characters" required pattern=".{8,}">
-                <input class="button" type="submit" value="Forgot Password" id="forgot">
                 <input class="button" type="submit" value="Register" id="register">
                 <input class="button" type="submit" value="Sign In" id="signInBttn">
             </form>
@@ -31,6 +30,7 @@
             <a href="index.html" id="signOut">Sign Out</a>
         </div>
         
+        <div id = "MenuItems">
         <div id = "meats">
             <input type="radio" name="meat" value="1/3 lb. Beef" id="ThirdBeef">1/3 lb. Beef
             <input type="radio" name="meat" value="1/2 lb. Beef" id="HalfBeef">1/2 lb. Beef
@@ -71,17 +71,20 @@
             <input type="radio" name="side" value="Onion rings" id="OnionRings" title="Onion Rings">Onion Rings
             <input type="radio" name="side" value="None" id="None" title="None">None
         </div>
+        </div>    
+        
+        <div id = "OrderList">
+        <hr>
+        <h2>Orders</h2>
+            <div id = "addedOrders"></div>
+            <h3 id = "totalPrice">Total Price: $0.00</h3>
+        <hr>
+        </div>
         
         <div id = "orderButtons">
             <button class="button" id="orderPrevious" type="button">Order Previous</button>
             <button class="button" id="payOrder" type="button">Pay</button>
         </div>
-        
-        <h2>Orders</h2>
-        <hr>
-            <div id = "addedOrders"></div>
-            <h3 id = "totalPrice">Total Price: $0.00</h3>
-        <hr>
 
 
 

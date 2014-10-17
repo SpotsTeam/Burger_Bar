@@ -31,14 +31,30 @@ header{
 }
 
 body{
-    background-color: yellow;
+    background-image: url("localhost/BurgerBar/img/background.gif");
 }
 
 #signIn {
     display: block;
-    float:right;
 }
 
 #signedIn{
     display: none;
+}
+
+#MenuItems{
+    width: 80%;
+    float: left;
+    
+    
+}
+
+#orderButtons{
+    float:right;
+    
+}
+
+#OrderList{
+    float: right;
+    
 }
