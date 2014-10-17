@@ -5,7 +5,7 @@ $app->get('/hello/:name', function ($name) {
     echo "Hello, $name";
 });
 
-$mysqli = new mysqli("localhost", "root", "compassstudios", "mydb");
+$mysqli = new mysqli("162.243.227.48", "root", "compassstudios", "mydb");
 if ($mysqli->connect_errno)
     die("Connection failed: " . $mysqli->connect_error);
 
