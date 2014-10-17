@@ -187,14 +187,39 @@ $app->get('/getLastOrder/:userID', function ($id) { //unfinished don't call this
 });
 
 $app->post('/createUserAccount', function () {
-    $dummyJSON = array ('u_id'=>1);
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $CCprovider = $_POST['CCprovider'];
     $CCNumber = $_POST['CCNumber'];
-    echo json_encode($dummyJSON);
+    $mysqli = new mysqli("localhost", "root", "compassstudios", "burgerDB");
+    if ($mysqli->connect_errno)
+        die("Connection failed: " . $mysqli->connect_error);
+    if($fName === "" || $lName === "" || $email === "" || $password === "" || $CCprovider === "" || $CCNumber === "")
+        $outputJSON = array ('u_id'=>-2);
+    else{
+    $dupCheck = $mysqli->query("SELECT email FROM User WHERE email = '$email' LIMIT 1");
+    $checkResults = $dupCheck->fetch_assoc();
+        if(!($checkResults === NULL))
+        $outputJSON = array ('u_id'=>-1);
+        else{
+            $prevUser = $mysqli->query("SELECT idUser FROM User ORDER BY idUser DESC LIMIT 1");
+            $row = $prevUser->fetch_assoc();
+            if($row === NULL){
+                $outputJSON = array ('u_id'=>1);
+                $CCNumber = (int) $CCNumber;
+                $insertion = $mysqli->query("INSERT INTO User (idUser, fName, lName, email, password, ccProvider, ccNumber) VALUES (1, '$fName', '$lName', '$email', '$password', '$CCprovider', $CCNumber)");
+            }
+            else{
+                $newID = $row['idUser']+1;
+                $outputJSON = array ('u_id'=>$newID);
+                $CCNumber = (int) $CCNumber;
+                $insertion = $mysqli->query("INSERT INTO User (idUser, fName, lName, email, password, ccProvider, ccNumber) VALUES ($newID, '$fName', '$lName', '$email', '$password', '$CCprovider', $CCNumber)");
+            }
+        }
+    }
+    echo json_encode($outputJSON);
 });
 
 $app->post('/loginUser', function () {
