@@ -38,3 +38,7 @@ body{
     display: block;
     float:right;
 }
+
+#signedIn{
+    display: none;
+}
