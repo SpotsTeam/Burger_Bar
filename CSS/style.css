@@ -31,7 +31,8 @@ header{
 }
 
 body{
-    background-image: url("localhost/BurgerBar/img/background.gif");
+    background-image: url("img/Background.gif"); 
+    background-size: cover;
 }
 
 #signIn {
@@ -57,4 +58,53 @@ body{
 #OrderList{
     float: right;
     
+}
+
+#PicThirdBeef{
+    height:auto; 
+    width:auto; 
+    max-width:100px; 
+    max-height:100px;
+}
+
+#PicHalfBeef{
+    height:auto; 
+    width:auto; 
+    max-width:100px; 
+    max-height:100px;
+}
+
+#PicTurkey{
+    height:auto; 
+    width:auto; 
+    max-width:100px; 
+    max-height:100px;
+}
+
+#PicVeggie{
+    height:auto; 
+    width:auto; 
+    max-width:100px; 
+    max-height:100px;
+}
+
+#PicWhite{
+    height:auto; 
+    width:auto; 
+    max-width:100px; 
+    max-height:100px;
+}
+
+#PicWheat{
+    height:auto; 
+    width:auto; 
+    max-width:100px; 
+    max-height:100px;
+}
+
+#PicTexasToast{
+    height:auto; 
+    width:auto; 
+    max-width:100px; 
+    max-height:100px;
 }
