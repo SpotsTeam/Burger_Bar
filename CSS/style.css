@@ -44,7 +44,7 @@ body{
 }
 
 #MenuItems{
-    width: 80%;
+    width: 85%;
     float: left;
     
     
@@ -60,49 +60,7 @@ body{
     
 }
 
-#PicThirdBeef{
-    height:auto; 
-    width:auto; 
-    max-width:100px; 
-    max-height:100px;
-}
-
-#PicHalfBeef{
-    height:auto; 
-    width:auto; 
-    max-width:100px; 
-    max-height:100px;
-}
-
-#PicTurkey{
-    height:auto; 
-    width:auto; 
-    max-width:100px; 
-    max-height:100px;
-}
-
-#PicVeggie{
-    height:auto; 
-    width:auto; 
-    max-width:100px; 
-    max-height:100px;
-}
-
-#PicWhite{
-    height:auto; 
-    width:auto; 
-    max-width:100px; 
-    max-height:100px;
-}
-
-#PicWheat{
-    height:auto; 
-    width:auto; 
-    max-width:100px; 
-    max-height:100px;
-}
-
-#PicTexasToast{
+.MenuPics{
     height:auto; 
     width:auto; 
     max-width:100px; 
