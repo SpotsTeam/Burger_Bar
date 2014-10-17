@@ -12,9 +12,30 @@
 //    var json = JSON.parse(request.responseText);
 //}
 
+document.getElementById("signInEmail").removeAttribute("required");
+document.getElementById("signInPass").removeAttribute("required");
 
+var submit;
 
+var reply_click = function(){
+	submit = document.getElementById(this.id);
+	//alert(submit.value);
+}
 
+document.getElementById('register').onclick = reply_click;
+document.getElementById('forgot').onclick = reply_click;
+document.getElementById('signInBttn').onclick = reply_click;
+
+function submitForm (button, form){
+  console.log(button.id);
+  //console.log(submit.id);
+  //alert(submit.id);
+}
+
+console.log(submit.value);
+var form = document.getElementById("signInArea");
+//alert(form.name);
+submitForm(submit, form);
 
 //Select type of meat.
 var meat;
