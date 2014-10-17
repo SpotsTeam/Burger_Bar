@@ -239,7 +239,7 @@ $app->post('/placeUserOrder', function () {
     $burgers = $_POST['burgers'];
     $userID = (int) $userID;
 
-    $getOrderID = $mysqli->query("SELECT idOrder FROM burgerOrder ORDER BY idOrder DESC LIMIT 1");
+    $getOrderID = $mysqli->query("SELECT idOrder FROM BurgerOrder ORDER BY idOrder DESC LIMIT 1");
     if($getOrderID === false)
 	$prevOrderID = 0;
     else
@@ -253,14 +253,8 @@ $app->post('/placeUserOrder', function () {
 	$prevBurgerID = $getBurgerID->fetch_assoc();
 
     $newOrderID = (int) $prevOrderID['idOrder'] + 1;
-    if(!($userID === NULL))
-	$order = $mysqli->query("INSERT INTO burgerOrder VALUES ($newOrderID,$userID)");
-    else{
-	if($fName === NULL || $lName === NULL || $CCprovider === NULL || $CCNumber === NULL)
-	    $outputJSON = array ('status'=>"Failure");
-	else
-		$order = $mysqli->query("INSERT INTO burgerOrder VALUES ($newOrderID,$userID)");
-	}
+    if(!($userID === 0)){
+	$order = $mysqli->query("INSERT INTO BurgerOrder VALUES ($newOrderID,$userID)");
 	$burgerList = json_decode($burgers);
 	$burgerID = $prevBurgerID['idBurger'];
 	foreach($burgerList as $burger)	{
@@ -268,20 +262,25 @@ $app->post('/placeUserOrder', function () {
 	    $burger = (array) $burger;
 	    $quantity = (int) $burger['quantity'];
 	    $orderIDString = (string) $newOrderID;
-	    $newBurger = $mysqli->query("INSERT INTO Burger VALUES ($burgerID,'$orderIDString',$quantity)");
+	    $newBurger = $mysqli->query("INSERT INTO Burger VALUES ($burgerID,$quantity,'$orderIDString')");
 	    
 	    foreach($burger["components"] as $component){
 		$getComponentID = $mysqli->query("SELECT idBurgerComponent FROM BurgerComponent WHERE ComponentName = '$component' LIMIT 1");
 		if(!($getComponentID === false))
 		    $componentID = $getComponentID->fetch_assoc();
 		else{
-		    $outputJSON = array('status'=>"Failure");
+		    $outputJSON = array('status'=>"Failure",'message'=>"GUI don goofed");
 		    break 2;
 		}
 		$componentID = (int) $componentID['idBurgerComponent'];
 		$newComponent = $mysqli->query("INSERT INTO Burger_has_BurgerComponent VALUES ('$burgerID','$componentID')");
 		}
 	    }
+	}
+    else
+	if($fName === "" || $lName === "" || $CCprovider === "" || $CCNumber === "")
+	    $outputJSON = array ('status'=>"Failure");
+	
 	
     
     
