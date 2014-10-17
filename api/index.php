@@ -5,6 +5,10 @@ $app->get('/hello/:name', function ($name) {
     echo "Hello, $name";
 });
 
+$mysqli = new mysqli("localhost", "root", "root", "mydb");
+if ($mysqli->connect_errno)
+    die("Connection failed: " . $mysqli->connect_error);
+
 $app->get('/getMeats', function () {
 	$meats = '{
 		"meats": [
@@ -151,28 +155,72 @@ $app->get('/getSides', function () {
 
 });
 
-$app->get('/getLastOrder/:userID', function ($id) {
-    $componentsForBurger1 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Bacon","French fries");
+$app->get('/getLastOrder/:userID', function ($id) { //currently untested
+    global $mysqli;
+    $orderList=$mysqli->query("SELECT idOrder FROM order WHERE id=".$id);
+    $largestID=0;
+    for($i=0; $i<sizeOf($orderList); $i++){ //find the most recent order
+        if($orderList[$i]>$largestID){
+            $largestID=$orderList[$i];
+        }
+    }
+    //get list of burgers in the most recent order and create list of components of each burger
+    $burgerSet=array();
+    $burgerList=$mysqli->query("SELECT idBurger FROM Burger Where Order_idOrder = " . $largestID);
+    for($i=0; $i<sizeOf($burgerList); $i++){
+        $theQuery="SELECT BurgerComponent_idBurgerComponent FROM Burger_has_BurgerComponent WHERE Burger_idBurger=".$burgerList[$i];
+        $burgerComp=$mysqli->query($theQuery);
+        array_push($burgerSet, $burgerComp);
+    }
+    json_encode($burgerSet);
+    /*$componentsForBurger1 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Bacon","French fries");
     $quantityForBurger1 = 1;
     $burger1 = array("components"=>$componentsForBurger1,"quantity"=>$quantityForBurger1);
+    $query = "select idOrder from order";
+    $result= mysql_query($query);
 
     $componentsForBurger2 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Mustard","Mayonnaise","Bacon");
     $quantityForBurger2 = 5; 
     $burger2 = array("components"=>$componentsForBurger1,"quantity"=>$quantityForBurger2);
 
     $burgers = array("1" => $burger1, "2" => $burger2);
-    echo json_encode($burgers);
+    echo json_encode($burgers);*/
 });
 
 $app->post('/createUserAccount', function () {
-    $dummyJSON = array ('u_id'=>1);
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $CCprovider = $_POST['CCprovider'];
     $CCNumber = $_POST['CCNumber'];
-    echo json_encode($dummyJSON);
+    $mysqli = new mysqli("localhost", "root", "compassstudios", "burgerDB");
+    if ($mysqli->connect_errno)
+        die("Connection failed: " . $mysqli->connect_error);
+    if($fName === "" || $lName === "" || $email === "" || $password === "" || $CCprovider === "" || $CCNumber === "")
+        $outputJSON = array ('u_id'=>-2);
+    else{
+    $dupCheck = $mysqli->query("SELECT email FROM User WHERE email = '$email' LIMIT 1");
+    $checkResults = $dupCheck->fetch_assoc();
+        if(!($checkResults === NULL))
+        $outputJSON = array ('u_id'=>-1);
+        else{
+            $prevUser = $mysqli->query("SELECT idUser FROM User ORDER BY idUser DESC LIMIT 1");
+            $row = $prevUser->fetch_assoc();
+            if($row === NULL){
+                $outputJSON = array ('u_id'=>1);
+                $CCNumber = (int) $CCNumber;
+                $insertion = $mysqli->query("INSERT INTO User (idUser, fName, lName, email, password, ccProvider, ccNumber) VALUES (1, '$fName', '$lName', '$email', '$password', '$CCprovider', $CCNumber)");
+            }
+            else{
+                $newID = $row['idUser']+1;
+                $outputJSON = array ('u_id'=>$newID);
+                $CCNumber = (int) $CCNumber;
+                $insertion = $mysqli->query("INSERT INTO User (idUser, fName, lName, email, password, ccProvider, ccNumber) VALUES ($newID, '$fName', '$lName', '$email', '$password', '$CCprovider', $CCNumber)");
+            }
+        }
+    }
+    echo json_encode($outputJSON);
 });
 
 $app->post('/loginUser', function () {

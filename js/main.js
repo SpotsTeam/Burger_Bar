@@ -11,128 +11,215 @@
 //if(request.status === 200){
 //    var json = JSON.parse(request.responseText);
 //}
-var submit;
 
-var reply_click = function(){
-	submit = document.getElementById(this.id);
-	//alert(submit.value);
+//document.getElementById("signInEmail").removeAttribute("required");
+//document.getElementById("signInPass").removeAttribute("required");
+
+
+
+
+
+var meatPrices = new Array();
+var bunPrices = new Array();
+var cheesePrices = new Array();
+var toppingPrices = new Array();
+var saucePrices = new Array();
+var sidePrices = new Array();
+
+var total = 0;
+
+var url = "./api/index.php/getMeats";
+var request = new XMLHttpRequest();
+request.open('GET', url, false);
+request.send();
+if(request.status === 200){
+    var json = JSON.parse(request.responseText);
+    var html = '';
+	for(var i = 0; i < json.meats.length; i++){
+		html += '<input type="radio" name="meat" value="'+json.meats[i].name+'" id="'+json.meats[i].name+'">'+json.meats[i].name;
+		meatPrices.push(json.meats[i].price);
+	}
+	document.getElementById("meats").innerHTML = html;
 }
 
-document.getElementById('register').onclick = reply_click;
-document.getElementById('forgot').onclick = reply_click;
-document.getElementById('signInBttn').onclick = reply_click;
-
-function submitForm (button, form){
-  console.log(button.id);
-  //console.log(submit.id);
-  //alert(submit.id);
+url = "./api/index.php/getBuns";
+request.open('GET', url, false);
+request.send();
+if(request.status === 200){
+    var json = JSON.parse(request.responseText);
+    var html = '';
+	for(var i = 0; i < json.buns.length; i++){
+		html += '<input type="radio" name="bun" value="'+json.buns[i].name+'" id="'+json.buns[i].name+'">'+json.buns[i].name;
+		bunPrices.push(json.buns[i].price);
+	}
+	document.getElementById("buns").innerHTML = html;
 }
 
-console.log(submit.value);
-var form = document.getElementById("signInArea");
-//alert(form.name);
-submitForm(submit, form);
+url = "./api/index.php/getCheeses";
+request.open('GET', url, false);
+request.send();
+if(request.status === 200){
+    var json = JSON.parse(request.responseText);
+    var html = '';
+	for(var i = 0; i < json.cheeses.length; i++){
+		html += '<input type="radio" name="cheese" value="'+json.cheeses[i].name+'" id="'+json.cheeses[i].name+'">'+json.cheeses[i].name;
+		cheesePrices.push(json.cheeses[i].price);
+	}
+	document.getElementById("cheeses").innerHTML = html;
+}
 
-//Select type of meat.
-var meat;
+url = "./api/index.php/getToppings";
+request.open('GET', url, false);
+request.send();
+if(request.status === 200){
+    var json = JSON.parse(request.responseText);
+    var html = '';
+	for(var i = 0; i < json.toppings.length; i++){
+		html += '<input type="checkbox" name="topping" value="'+json.toppings[i].name+'" id="'+json.toppings[i].name+'">'+json.toppings[i].name;
+		toppingPrices.push(json.toppings[i].price);
+	}
+	document.getElementById("toppings").innerHTML = html;
+}
+
+url = "./api/index.php/getSauces";
+request.open('GET', url, false);
+request.send();
+if(request.status === 200){
+    var json = JSON.parse(request.responseText);
+    var html = '';
+	for(var i = 0; i < json.sauces.length; i++){
+		html += '<input type="checkbox" name="sauce" value="'+json.sauces[i].name+'" id="'+json.sauces[i].name+'">'+json.sauces[i].name;
+		saucePrices.push(json.sauces[i].price);
+	}
+	document.getElementById("sauces").innerHTML = html;
+}
+
+url = "./api/index.php/getSides";
+request.open('GET', url, false);
+request.send();
+if(request.status === 200){
+    var json = JSON.parse(request.responseText);
+    var html = '';
+	for(var i = 0; i < json.sides.length; i++){
+		html += '<input type="radio" name="side" value="'+json.sides[i].name+'" id="'+json.sides[i].name+'">'+json.sides[i].name;
+		sidePrices.push(json.sides[i].price);
+	}
+	document.getElementById("sides").innerHTML = html;
+}
+
+
+
+
+
+$(document).on('click', '.button', function(){ 
+   var bttn = $(this).attr('id'); 
+   if(bttn === "register"){
+		document.getElementById("signInEmail").removeAttribute("required");
+		document.getElementById("signInPass").removeAttribute("required");
+
+   } else {
+   		return false;
+   }
+});
+
+
+
+
+
 var meats = document.getElementsByName("meat");
-for (var i = 0; i < meats.length; ++i) {
-  var m = meats[i];
-  m.addEventListener("click", selectMeat, false);
-}
 function selectMeat(){
-	if(document.getElementById('ThirdBeef').checked) {
-	  	meat = document.getElementById('ThirdBeef').value;
-	}else if(document.getElementById('halfBeef').checked) {
-		meat = document.getElementById('halfBeef').value;
-	}else if(document.getElementById('Turkey').checked) {
-		meat = document.getElementById('Turkey').value;
-	}else if(document.getElementById('Veggie').checked) {
-		meat = document.getElementById('Veggie').value
+	for (var i=0; i < meats.length; i++){
+	   if (meats[i].checked){
+	      document.getElementById("burgerMeat").innerHTML = meats[i].value + ': $' + meatPrices[i];
+	      total += meatPrices[i];
+	      break;
+	   }
 	}
+};
+for (var i = 0; i < meats.length; ++i) {
+  var meat = meats[i];
+  meat.addEventListener("click", selectMeat, false);
 }
 
-//Select type of bun.
-var bun;
 var buns = document.getElementsByName("bun");
-for (var i = 0; i < buns.length; ++i) {
-  var b = buns[i];
-  b.addEventListener("click", selectBun, false);
-}
 function selectBun(){
-	if(document.getElementById('White').checked) {
-	 	bun = document.getElementById('White').value;
-	}else if(document.getElementById('Wheat').checked) {
-		bun = document.getElementById('Wheat').value;
-	}else if(document.getElementById('TexasToast').checked) {
-		bun = document.getElementById('TexasToast').value;
+	for (var i=0; i < buns.length; i++){
+	   if (buns[i].checked){
+	      document.getElementById("burgerBun").innerHTML = buns[i].value + ': $' + bunPrices[i];
+	      total += bunPrices[i];
+	      break;
+	   }
 	}
+};
+for (var i = 0; i < buns.length; ++i) {
+  var bun = buns[i];
+  bun.addEventListener("click", selectBun, false);
 }
 
-//Select type of cheese.
-var cheese;
 var cheeses = document.getElementsByName("cheese");
-for (var i = 0; i < cheeses.length; ++i) {
-  var c = cheeses[i];
-  c.addEventListener("click", selectCheese, false);
-}
 function selectCheese(){
-	if(document.getElementById('Cheddar').checked) {
-	 	cheese = document.getElementById('Cheddar').value;
-	}else if(document.getElementById('American').checked) {
-		cheese = document.getElementById('American').value;
-	}else if(document.getElementById('Swiss').checked) {
-		cheese = document.getElementById('Swiss').value;
-	}else if(document.getElementById('None').checked) {
-		cheese = document.getElementById('None').value;
+	for (var i=0; i < cheeses.length; i++){
+	   if (cheeses[i].checked){
+	      document.getElementById("burgerCheese").innerHTML = cheeses[i].value + ': $' + cheesePrices[i];
+	      total += cheesePrices[i];
+	      break;
+	   }
 	}
+};
+for (var i = 0; i < cheeses.length; ++i) {
+  var cheese = cheeses[i];
+  cheese.addEventListener("click", selectCheese, false);
 }
 
-//Select toppings.
-var toppingsSelected = new Array();
+var sides = document.getElementsByName("side");
+function selectSide(){
+	for (var i=0; i < sides.length; i++){
+	   if (sides[i].checked){
+	      document.getElementById("burgerSide").innerHTML = sides[i].value + ': $' + sidePrices[i];
+	      total += sidePrices[i];
+	      break;
+	   }
+	}
+}
+for (var i = 0; i < sides.length; ++i) {
+  var side = sides[i];
+  side.addEventListener("click", selectSide, false);
+}
+
 var toppings = document.getElementsByName("topping");
 for (var i = 0; i < toppings.length; ++i) {
   var t = toppings[i];
   t.addEventListener("click", selectToppings, false);
 }
 function selectToppings(){
+	var toppingsSelected = new Array();
+	var price = 0;
 	for (var i = 0; i < toppings.length; ++i) {
 	  if(toppings[i].checked){
-	  	toppingsSelected.push(toppings[i]);
+	  	toppingsSelected.push(toppings[i].value);
+	  	price += toppingPrices[i];
 	  }
 	}
+	document.getElementById("burgerToppings").innerHTML = toppingsSelected + ': $' + price;
+	total += price;
 }
 
-//Select toppings.
-var saucesSelected = new Array();
 var sauces = document.getElementsByName("sauce");
 for (var i = 0; i < sauces.length; ++i) {
-  var s = sauces[i];
-  t.addEventListener("click", selectSauces, false);
+  var sauce = sauces[i];
+  sauce.addEventListener("click", selectSauces, false);
 }
 function selectSauces(){
+	var saucesSelected = new Array();
+	var price = 0;
 	for (var i = 0; i < sauces.length; ++i) {
 	  if(sauces[i].checked){
-	  	saucesSelected.push(sauces[i]);
+	  	saucesSelected.push(sauces[i].value);
+	  	price += toppingPrices[i];
 	  }
 	}
+	document.getElementById("burgerSauces").innerHTML = saucesSelected + ': $' + price;
+	total += price;
 }
 
-//Select type of side.
-var side;
-var sides = document.getElementsByName("side");
-for (var i = 0; i < sides.length; ++i) {
-  var s = sides[i];
-  s.addEventListener("click", selectSide, false);
-}
-function selectSide(){
-	if(document.getElementById('FrenchFries').checked) {
-	 	side = document.getElementById('FrenchFries').value;
-	}else if(document.getElementById('TaterTots').checked) {
-		side = document.getElementById('TaterTots').value;
-	}else if(document.getElementById('OnionRings').checked) {
-		side = document.getElementById('OnionRings').value;
-	}else if(document.getElementById('None').checked) {
-		side = document.getElementById('None').value;
-	}
-}
+document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
