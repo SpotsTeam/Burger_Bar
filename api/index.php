@@ -157,7 +157,7 @@ $app->get('/getSides', function () {
 
 $app->get('/getLastOrder/:userID', function ($id) { //currently untested
     global $mysqli;
-    $orderList=$mysqli->query("SELECT idOrder FROM order WHERE id=".$id);
+    $orderList=$mysqli->query("SELECT idOrder FROM BurgerOrder WHERE id=".$id);
     $largestID=0;
     for($i=0; $i<sizeOf($orderList); $i++){ //find the most recent order
         if($orderList[$i]>$largestID){
@@ -166,7 +166,7 @@ $app->get('/getLastOrder/:userID', function ($id) { //currently untested
     }
     //get list of burgers in the most recent order and create list of components of each burger
     $burgerSet=array();
-    $burgerList=$mysqli->query("SELECT idBurger FROM Burger Where Order_idOrder = " . $largestID);
+    $burgerList=$mysqli->query("SELECT idBurger FROM Burger Where BurgerOrder_idOrder = " . $largestID);
     for($i=0; $i<sizeOf($burgerList); $i++){
         $theQuery="SELECT BurgerComponent_idBurgerComponent FROM Burger_has_BurgerComponent WHERE Burger_idBurger=".$burgerList[$i];
         $burgerComp=$mysqli->query($theQuery);
