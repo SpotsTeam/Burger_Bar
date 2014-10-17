@@ -11,27 +11,23 @@
 //if(request.status === 200){
 //    var json = JSON.parse(request.responseText);
 //}
-var submit;
 
-var reply_click = function(){
-	submit = document.getElementById(this.id);
-	//alert(submit.value);
-}
 
-document.getElementById('register').onclick = reply_click;
-document.getElementById('forgot').onclick = reply_click;
-document.getElementById('signInBttn').onclick = reply_click;
+//document.getElementById("signInEmail").removeAttribute("required");
+//document.getElementById("signInPass").removeAttribute("required");
 
-function submitForm (button, form){
-  console.log(button.id);
-  //console.log(submit.id);
-  //alert(submit.id);
-}
+console.log("HI");
+$(document).ready(function() {
+    $("form").submit(function() { 
+    var val = $("input[type=submit][clicked=true]").val()
+    if(val === "register"){
+    	alert("true");
+    } else {
+    	alert("false");
+    }
+    // DO WORK
+});
 
-console.log(submit.value);
-var form = document.getElementById("signInArea");
-//alert(form.name);
-submitForm(submit, form);
 
 //Select type of meat.
 var meat;
