@@ -38,10 +38,10 @@ if(request.status === 200){
 	for(var i = 0; i < json.meats.length; i++){
 		html += '<input type="radio" name="meat" value="'+json.meats[i].name+'" id="'+json.meats[i].name+'">'+json.meats[i].name;
                 if(json.meats[i].name.indexOf("Beef") > -1){
-                    html += '<br><img class = "MenuPics" src="img/Beef.png">';
+                    html += '<img class = "MenuPics" src="img/Beef.png">';
                 }
                 else{
-                    html+= '<br><img class = "MenuPics" src="img/' + json.meats[i].name + '.png">';
+                    html+= '<img class = "MenuPics" src="img/' + json.meats[i].name + '.png">';
                 }
 		meatPrices.push(json.meats[i].price);
 	}
