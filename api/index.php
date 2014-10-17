@@ -5,9 +5,9 @@ $app->get('/hello/:name', function ($name) {
     echo "Hello, $name";
 });
 
-/*$mysqli = new mysqli("localhost", "root", "root", "burgerDB");
+$mysqli = new mysqli("localhost", "root", "root", "mydb");
 if ($mysqli->connect_errno)
-    die("Connection failed: " . $mysqli->connect_error);*/
+    die("Connection failed: " . $mysqli->connect_error);
 
 $app->get('/getMeats', function () {
 	$meats = '{
@@ -155,7 +155,7 @@ $app->get('/getSides', function () {
 
 });
 
-$app->get('/getLastOrder/:userID', function ($id) { //unfinished don't call this
+$app->get('/getLastOrder/:userID', function ($id) { //currently untested
     global $mysqli;
     $orderList=$mysqli->query("SELECT idOrder FROM order WHERE id=".$id);
     $largestID=0;
@@ -164,14 +164,15 @@ $app->get('/getLastOrder/:userID', function ($id) { //unfinished don't call this
             $largestID=$orderList[$i];
         }
     }
-    //get list of burgers in last order and create list of components of each burger
-    $burgerList=$mysqli->query("SELECT idBurger FROM Burger Where Order_idOrder = ".largestID);
+    //get list of burgers in the most recent order and create list of components of each burger
+    $burgerSet=array();
+    $burgerList=$mysqli->query("SELECT idBurger FROM Burger Where Order_idOrder = " . $largestID);
     for($i=0; $i<sizeOf($burgerList); $i++){
         $theQuery="SELECT BurgerComponent_idBurgerComponent FROM Burger_has_BurgerComponent WHERE Burger_idBurger=".$burgerList[$i];
         $burgerComp=$mysqli->query($theQuery);
-        //under construction
-
+        array_push($burgerSet, $burgerComp);
     }
+    json_encode($burgerSet);
     /*$componentsForBurger1 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Bacon","French fries");
     $quantityForBurger1 = 1;
     $burger1 = array("components"=>$componentsForBurger1,"quantity"=>$quantityForBurger1);
