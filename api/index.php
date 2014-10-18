@@ -5,7 +5,7 @@ $app->get('/hello/:name', function ($name) {
     echo "Hello, $name";
 });
 
-$mysqli = new mysqli("localhost", "root", "compassstudios", "mydb");
+$mysqli = new mysqli("localhost", "root", "root", "mydb");
 if ($mysqli->connect_errno)
     die("Connection failed: " . $mysqli->connect_error);
 
@@ -159,6 +159,7 @@ $app->get('/getLastOrder/:userID', function ($id) { //currently untested
     global $mysqli;
     $orderQuery=$mysqli->query("SELECT idOrder FROM BurgerOrder WHERE User_idUser = '$id' ORDER BY idOrder DESC LIMIT 1");
     $largestID=$orderQuery->fetch_assoc();
+
     //echo "largest = ".$largestID['idOrder'];
    
     $burgerSet=array();
@@ -203,25 +204,28 @@ $app->post('/createUserAccount', function () {
     $password = $_POST['password'];
     $CCprovider = $_POST['CCprovider'];
     $CCNumber = $_POST['CCNumber'];
+
+	//If input has empty field, return failure.
     if($fName === "" || $lName === "" || $email === "" || $password === "" || $CCprovider === "" || $CCNumber === "")
 	$outputJSON = array ('u_id'=>-2);
     else{
+		//Check if the email is already in the database. Return "duplicate user" failure message.
 	$dupCheck = $mysqli->query("SELECT email FROM User WHERE email = '$email' LIMIT 1");
 	$checkResults = $dupCheck->fetch_assoc();
 	    if(!($checkResults === NULL))
 		$outputJSON = array ('u_id'=>-1);
-	    else{
+	    else{		//Get greatest userID.
 		$prevUser = $mysqli->query("SELECT idUser FROM User ORDER BY idUser DESC LIMIT 1");
 		$row = $prevUser->fetch_assoc();
-		if($row === NULL){
+		if($row === NULL){		//If no previous user, set userID to 1
 		    $outputJSON = array ('u_id'=>1);
-		    $CCNumber = (int) $CCNumber;
+		    $CCNumber = (int) $CCNumber;		//Insert user information.
 		    $insertion = $mysqli->query("INSERT INTO User (idUser, fName, lName, email, password, ccProvider, ccNumber) VALUES (1, '$fName', '$lName', '$email', '$password', '$CCprovider', $CCNumber)");
 		}
 		else{
-		    $newID = $row['idUser']+1;
+		    $newID = $row['idUser']+1;		//Sets userID to previous+1.
 		    $outputJSON = array ('u_id'=>$newID);
-		    $CCNumber = (int) $CCNumber;
+		    $CCNumber = (int) $CCNumber;		//Insert user information.
 		    $insertion = $mysqli->query("INSERT INTO User (idUser, fName, lName, email, password, ccProvider, ccNumber) VALUES ($newID, '$fName', '$lName', '$email', '$password', '$CCprovider', $CCNumber)");
 		}
             }
@@ -229,12 +233,12 @@ $app->post('/createUserAccount', function () {
 	echo json_encode($outputJSON);
 });
 
-$app->post('/loginUser', function () {
+/*$app->post('/loginUser', function () {
     $dummyJSON = array ('status'=>"Success", "user_id"=>1,"fName"=>"Austin","lName"=>"Wells","CCnum"=>1234,"CCprovider"=>"Visa");
     $email = $_POST['email'];
     $password = $_POST['password'];
     echo json_encode($dummyJSON);
-});
+});*/
 
 $app->post('/placeUserOrder', function () {
     global $mysqli;
@@ -246,46 +250,54 @@ $app->post('/placeUserOrder', function () {
     $CCNumber = $_POST['CCNumber'];
     $burgers = $_POST['burgers'];
     $userID = (int) $userID;
-
+		
+	//Finds previous orderID or 0 if there are no previous orders.
     $getOrderID = $mysqli->query("SELECT idOrder FROM BurgerOrder ORDER BY idOrder DESC LIMIT 1");
     if($getOrderID === false)
 	$prevOrderID = 0;
     else
 	$prevOrderID = $getOrderID->fetch_assoc();
 
-
+	//Finds previous burgerID or 0 if there are no previous burgers.
     $getBurgerID = $mysqli->query("SELECT idBurger FROM Burger ORDER BY idBurger DESC LIMIT 1");
     if($getBurgerID === false)
 	$prevBurgerID = 0;
     else
 	$prevBurgerID = $getBurgerID->fetch_assoc();
 
+	//Increments orderID.
     $newOrderID = (int) $prevOrderID['idOrder'] + 1;
+
+	//If a userID was given, creates an order and adds the burgers and their components.
     if(!($userID === 0)){
-	$order = $mysqli->query("INSERT INTO BurgerOrder VALUES ($newOrderID,$userID)");
+	$order = $mysqli->query("INSERT INTO BurgerOrder VALUES ($newOrderID,$userID)");	//Creates new order.
 	$burgerList = json_decode($burgers);
 	$burgerID = $prevBurgerID['idBurger'];
+						
+	    //Adds new burger for each set of values in the input json.
 	foreach($burgerList as $burger)	{
 	    $burgerID = (int) $burgerID+1;
 	    $burger = (array) $burger;
 	    $quantity = (int) $burger['quantity'];
 	    $orderIDString = (string) $newOrderID;
 	    $newBurger = $mysqli->query("INSERT INTO Burger VALUES ($burgerID,$quantity,'$orderIDString')");
-	    
+	        
+		//Adds components for each component in the components array.
 	    foreach($burger["components"] as $component){
 		$getComponentID = $mysqli->query("SELECT idBurgerComponent FROM BurgerComponent WHERE ComponentName = '$component' LIMIT 1");
 		if(!($getComponentID === false))
 		    $componentID = $getComponentID->fetch_assoc();
-		else{
+		else{				//If there is a component in the input that is not in database, there is a gui problem.
 		    $outputJSON = array('status'=>"Failure",'message'=>"GUI don goofed");
 		    break 2;
 		}
 		$componentID = (int) $componentID['idBurgerComponent'];
+			//Adds the linking table entry between a burger and its component.
 		$newComponent = $mysqli->query("INSERT INTO Burger_has_BurgerComponent VALUES ('$burgerID','$componentID')");
 		}
 	    }
 	}
-    else
+    else			//If one of the inputs is empty, return failure.
 	if($fName === "" || $lName === "" || $CCprovider === "" || $CCNumber === "")
 	    $outputJSON = array ('status'=>"Failure");
 	
@@ -294,6 +306,107 @@ $app->post('/placeUserOrder', function () {
     
     echo json_encode($outputJSON);
 });
+
+$app->post('/loginUser', function(){
+    global $mysqli;
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    try {
+
+	$sql = "SELECT idUser FROM User WHERE email='$email'";
+	$stmt = $mysqli -> query($sql);			
+	$username_test = $stmt -> fetch_assoc();
+		
+	if(($username_test === NULL)) {
+		$JSONarray = array(
+			'status'=>'Failure', 
+			'user_id'=>NULL,
+			'fName'=>NULL,
+			'lName'=>NULL,
+			'CCnum'=>NULL,
+			'CCprovider'=>NULL);
+		echo json_encode($JSONarray);
+	}
+	else{
+		$sql = "SELECT password FROM User WHERE email='$email'";
+		$stmt = $mysqli -> query($sql);
+		$hashedPassword = $stmt -> fetch_assoc();		
+		$hashedPassword = $hashedPassword['password'];
+		if($hashedPassword === NULL) {
+		        $JSONarray = array(
+				'status'=>'Failure', 
+				'user_id'=>NULL,
+				'fName'=>NULL,
+				'lName'=>NULL,
+				'CCnum'=>NULL,
+				'CCprovider'=>NULL);
+			echo json_encode($JSONarray);
+		} 
+	
+		else if($password === $hashedPassword) {				
+			$_SESSION['loggedin'] = true;
+			$query = "SELECT idUser FROM User WHERE email='$email'";
+			$stmt2 = $mysqli -> query($query);			
+			$temp = $stmt2 -> fetch_assoc();	
+			$_SESSION['userId'] = $temp['idUser'];
+			$_SESSION['email'] = $email;	
+
+			$statusFlg = 'Succeed';
+	
+			$components = "SELECT * FROM User WHERE email='$email'";
+			$returnValue = $mysqli -> query($components);
+			$iteration = $returnValue -> fetch_assoc();
+			$JSONarray = array(
+				'status'=>$statusFlg,
+				'user_id'=>$iteration['idUser'],
+				'fName'=>$iteration['fName'],
+				'lName'=>$iteration['lName'],
+				'CCnum'=>$iteration['ccNumber'],
+				'CCprovider'=>$iteration['ccProvider']);
+			
+		 	echo json_encode($JSONarray); 
+		} 
+
+		//verifies password
+
+		else {
+			$JSONarray = array(
+				'status'=>'Failure', 
+				'user_id'=>NULL,
+				'fName'=>NULL,
+				'lName'=>NULL,
+				'CCnum'=>NULL,
+				'CCprovider'=>NULL);
+			echo json_encode($JSONarray);
+		}
+	}
+
+	//returns null when password is wrong
+
+        $mysqli = null;
+    } catch(exception $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+    }
+});		
+
+$app->post('/logout', function()  { 
+    $_SESSION = array(); 
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+        );
+    }
+    session_destroy();
+});
+
+
+
+
+
+
 
 
 
