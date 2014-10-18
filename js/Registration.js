@@ -10,8 +10,7 @@ function signUp(event){
     if(password !== cpassword){
         alert("Passwords do not match. Try again.");
         return;
-    }
-    else{
+    } else {
         $.ajax({
             type: "POST",
             url: "api/createUserAccount",
