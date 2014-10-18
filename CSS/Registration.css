@@ -18,7 +18,8 @@ p{
     border-width: 5px;
 }
 
-input {
-    height:10em;
+input, option, select {
+    margin-top: 1em;
+    height:1.5em;
     font-size:14pt;
 }
