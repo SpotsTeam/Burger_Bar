@@ -35,6 +35,7 @@ function Meat(name, price){
     this.name = name;
 }
 
+
 var url = "./api/index.php/getMeats";
 var request = new XMLHttpRequest();
 request.open('GET', url, false);
@@ -126,13 +127,14 @@ if(request.status === 200){
 
 
 var form = document.getElementById('signInArea');
+console.log("HI");
 document.getElementById('register').onclick = function() {
 	console.log("Registration");
-    //form.action = 'Registration';
-    //form.submit();
+    form.action = 'Registration.html';
+    form.submit();
 }
 document.getElementById('signInBttn').onclick = function() {
-    form.action = 'SignIn';
+    form.action = '';
     form.submit();
 }
 
