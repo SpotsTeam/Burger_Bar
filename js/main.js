@@ -158,16 +158,32 @@ if(request.status === 200){
 }
 
 
-$(document).on('click', '.button', function(){ 
-   var bttn = $(this).attr('id'); 
-   if(bttn === "register"){
-		document.getElementById("signInEmail").removeAttribute("required");
-		document.getElementById("signInPass").removeAttribute("required");
+var form = document.getElementById('signInArea');
+console.log("HI");
+document.getElementById('register').onclick = function() {
+	console.log("Registration");
+    form.action = 'Registration.html';
+    form.submit();
+}
+document.getElementById('signInBttn').onclick = function() {
+    form.action = '';
+    form.submit();
+}
 
-   } else {
-   		return false;
-   }
-});
+//Login
+url = "./api/index.php/loginUser";
+var first;
+var last;
+request.open('POST', url, false);
+request.send();
+if(request.status === 200){
+    var json = JSON.parse(request.responseText);
+	first = json.fName;
+	last = json.lName;
+}
+document.cookie = "fName="+first;
+document.cookie = "lName="+last;
+
 
 
 
