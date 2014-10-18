@@ -141,21 +141,25 @@ document.getElementById('signInBttn').onclick = function() {
 
 
 //Login
-
-function makeCookie(){
-	url = "./api/index.php/loginUser";
-	var userId;
-	request.open('POST', url, false);
-	request.send();
-	if(request.status === 200){
-	    var json = JSON.parse(request.responseText);
-		userId = json.user_id;
-	}
-	document.cookie = "user_id="+userId;
+url = "./api/index.php/loginUser";
+var first;
+var last;
+request.open('POST', url, false);
+request.send();
+if(request.status === 200){
+    var json = JSON.parse(request.responseText);
+	first = json.fName;
+	last = json.lName;
 }
+document.cookie = "fName="+first;
+document.cookie = "lName="+last;
 
 
 
+
+
+
+//Getting selected
 var meats = document.getElementsByName("meat");
 function selectMeat(){
 	for (var i=0; i < meats.length; i++){
