@@ -5,7 +5,7 @@ $app->get('/hello/:name', function ($name) {
     echo "Hello, $name";
 });
 
-$mysqli = new mysqli("localhost", "root", "compassstudios", "mydb");
+$mysqli = new mysqli("localhost", "root", "root", "mydb");
 if ($mysqli->connect_errno)
     die("Connection failed: " . $mysqli->connect_error);
 
@@ -159,6 +159,7 @@ $app->get('/getLastOrder/:userID', function ($id) { //currently untested
     global $mysqli;
     $orderQuery=$mysqli->query("SELECT idOrder FROM BurgerOrder WHERE User_idUser = '$id' ORDER BY idOrder DESC LIMIT 1");
     $largestID=$orderQuery->fetch_assoc();
+
     //echo "largest = ".$largestID['idOrder'];
    
     $burgerSet=array();
