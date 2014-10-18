@@ -1,0 +1,108 @@
+body {
+	background-img: url(img/Background.gif);
+}
+
+.tile {
+	float: left;
+	position: relative;
+	width: 15em;
+	height: 15em;
+	margin-left:3%;
+	margin-right:3%;
+	z-index: 0;
+	border-style: solid:
+	border-color: #FFFFFF;
+	background-color: rgb(236, 245, 255);
+}
+
+.menu {
+	margin-left: 25%;
+	width: 80%;
+	margin-right: 20%;
+	background-color: rgb(255, 222, 166);
+}
+
+div.tile:hover {
+	box-shadow: -2px 2px 5px 20px #CCCCCC;
+}
+
+.type {
+	margin-left: 45%;
+	margin-top: 80%;
+}
+
+#beef_img {
+	position: absolute;
+	margin-top: 5%;
+	margin-left: 25%;
+	margin-right: 30%;
+	width: 50%;
+}
+
+#beef_title {
+	position: absolute;
+	margin-top: 60%;
+	margin-left: 40%;
+}
+
+.beef_size {
+	position: relative;
+	margin-left: 8%;
+	margin-top: 80%;
+}
+
+.type_img {
+	position: absolute;
+	margin-top: 5%;
+	margin-left: 30%;
+	margin-right: 30%;
+	width: 40%;
+}
+
+.type_title {
+	position: absolute;
+	margin-top: 60%;
+	margin-left: 35%;
+}
+
+.side_title {
+	position: absolute;
+	margin-top: 60%;
+	margin-left: 22%;
+}
+
+#toppings {
+	position: relative;
+	float: left;
+	background: #FFFFFF;
+	width: 50%;
+	height: auto;
+	margin-left: 4%;
+}
+
+#left_toppings {
+	width: 50%;
+	position: relative;
+	float: left;
+}
+
+#right_toppings {
+	width: 50%;
+	position: relative;
+	float: left;
+}
+
+#addToOrder_button {
+	position:absolute;
+	bottom:0;
+	width: 10em;
+	height: 3 em;
+}
+
+.menu_level {
+	float: left;
+	position: relative;
+	width: 80%;
+	margin-top: 2%;
+	margin-bottom: 2%;
+}

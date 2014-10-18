@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+	<head>
+		<title>Burger Bar-The Best Burgers in Texas</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='http://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="CSS/style.css">
+        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+		<link rel="stylesheet" href="CSS/menu.css">
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/menu.js"></script>
+	</head>
+	<body>
+		<header>
+            <img id = "logo" src="img/BurgerLogo.png" alt="Burger Bar Logo" title="Burger Bar">
+            <h1>Burger Bar</h1>
+            <div id = "signIn" class="rightHeader">
+            <form id="signInArea" name = "signIn" action = "#" method = "post">
+                <input id="signInEmail" type="email" name="email" placeholder="Email" title="Must be a valid email address." required>
+                <input id="signInPass" type="password" name="password" placeholder="Password" title="Must be at least 8 characters" required pattern=".{8,}">
+                <input class="button" type="submit" value="Register" id="register">
+                <input class="button" type="submit" value="Sign In" id="signInBttn">
+            </form>
+        </div>
+        </header>    
+            
+        <div id = "signedIn" class="rightHeader">
+            <h2>Welcome!</h2>
+            <a href="index.html" id="signOut">Sign Out</a>
+        </div>
+
+		<form id="burger">
+		<div class="menu">
+			<div class="menu_level" id="patty_type">
+				<div class="tile" id="patty_type">
+					<img id="beef_img" src="img/Beef.png">
+					<h2 id="beef_title">Beef</h1>
+					<input type="radio" class="beef_size" name="type" value="beef1">1/3 lb</input>
+					<input type="radio" class="beef_size" name="type" value="beef2">1/2 lb</input>
+					<input type="radio" class="beef_size" name="type" value="beef3">2/3 lb</input>
+				</div>
+
+				<div class="tile" id="patty_type">
+					<img class="type_img" src="img/Turkey.png">
+					<h2 class="type_title">Turkey</h1>
+					<input type="radio" name="type" class="type" value="turkey"></input>
+				</div>
+
+				<div class="tile" id="patty_type">
+					<img class="type_img" src="img/Veggie.png">
+					<h2 class="type_title">Veggie</h1>
+					<input type="radio" name="type" class="type" value="veggie"></input>
+				</div>
+			</div>
+
+			<div id="toppings" style="display: none;">
+				<div id="left_toppings">
+					<h3>Choose a bun:</h3>
+					<div><input type="radio" name="bun" value="white">White</input></div>
+					<div><input type="radio" name="bun" value="wheat">Wheat</input></div>
+					<div><input type="radio" name="bun" value="texas_toast">Texas Toast</input></div>
+
+					<h3>Choose a cheese:</h3>
+					<div><input type="radio" class="cheese" name="cheddar">Cheddar</input></div>
+					<div><input type="radio" class="cheese" name="american">American</input></div>
+					<div><input type="radio" class="cheese" name="swiss">Swiss</input></div>
+
+					<h3>Choose sauces:</h3>
+					<div><input type="checkbox" name="sauces" value="ketchup">Ketchup</input></div>
+					<div><input type="checkbox" name="sauces" value="mustard">Mustard</input></div>
+					<div><input type="checkbox" name="sauces" value="mayonnaise">Mayonnaise</input></div>
+					<div><input type="checkbox" name="sauces" value="bbq">BBQ</input></div>
+				</div>
+
+				<div id="right_toppings">
+					<h3>Choose toppings:</h3>
+					<div><input type="checkbox" name="toppings" value="tomatoes">Tomatoes</input></div>
+					<div><input type="checkbox" name="toppings" value="lettuce">Lettuce</input></div>
+					<div><input type="checkbox" name="toppings" value="onions">Onions</input></div>
+					<div><input type="checkbox" name="toppings" value="pickles">Pickles</input></div>
+					<div><input type="checkbox" name="toppings" value="bacon">Bacon</input></div>
+					<div><input type="checkbox" name="toppings" value="red_onion">Red Onion</input></div>
+					<div><input type="checkbox" name="toppings" value="mushrooms">Mushrooms</input></div>
+					<div><input type="checkbox" name="toppings" value="jalepenos">Jalepenos</input></div>
+				</div>
+			</div>
+		
+			<div class="menu_level" id="sides">
+				<div id="turkey" class="tile">
+					<img class="type_img" src="img/French Fries.png">
+					<h2 class="side_title">French Fries</h1>
+					<input type="radio" name="side" class="type" value="french_fries"></input>
+				</div>
+
+				<div id="turkey" class="tile">
+					<img class="type_img" src="img/Tater Tots.png">
+					<h2 class="side_title">Tater Tots</h1>
+					<input type="radio" name="side" class="type" value="tater_tots"></input>
+				</div>
+
+				<div id="veggie" class="tile">
+					<img class="type_img" src="img/Onion Rings.png">
+					<h2 class="side_title">Onions Rings</h1>
+					<input type="radio" name="side" class="type" value="onion_rings"></input>
+				</div>
+			</div>
+			<button type="button" id="addToOrder_button">Add to Order</button>
+		</div>
+
+		</form>
+	</body>
+</html>
+
