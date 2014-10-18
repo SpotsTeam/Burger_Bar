@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <script type="text/javascript" src="js/Registration.js"></script>
+
+    </head>
+    <body>
+        <form id = "signUpform" name="CreateAnAccount" action="#" method="post">
+		<p>Create an Account!</p>
+	    	<input type="text" id="givenName" placeholder="First Name" name="firstname" required title ="Enter your first name.">
+	   	   <input type="text" id="surname" placeholder="Last Name" name="lastname" required title="Enter you last name."><br>
+	    	<input type="email" id="email" placeholder="Email" name="email" required title="Must be an email."><br>
+	    	<input type="password" id="password" placeholder="Password" name="password" title="Must be 8 or more characters." required pattern=".{8,}">
+	   	<input type="password" id="confirmPassword" placeholder="Confirm Password" name="confirmPass" title="Must be 8 or more characters." required pattern=".{8,}"><br>
+	    	<select id="ccProvider" name="Credit Card Providers">
+		    <option id = "Visa" value="visa">Visa</option>
+		    <option value="mastercard">Master Card</option>
+		    <option value="amex">American Express</option>
+	    	</select>
+	    	<input type="text" id="ccNumber" placeholder="Credit Card Number" name="ccnumber" title="Enter a valid credit card number."><br>
+	    	<input type="submit" class="button" id ="signUp" value="Sign Up">   
+	    </form>
+
+    </body>
+</html>
