@@ -26,7 +26,14 @@ var toppingPrices = new Array();
 var saucePrices = new Array();
 var sidePrices = new Array();
 
+var subTotal = 0;
 var total = 0;
+var tax = 0;
+
+function Meat(name, price){
+    this.price = price;
+    this.name = name;
+}
 
 var url = "./api/index.php/getMeats";
 var request = new XMLHttpRequest();
@@ -36,14 +43,15 @@ if(request.status === 200){
     var json = JSON.parse(request.responseText);
     var html = '';
 	for(var i = 0; i < json.meats.length; i++){
+                var temp = new Meat(json.meats[i].name,json.meats[i].price); 
 		html += '<input type="radio" name="meat" value="'+json.meats[i].name+'" id="'+json.meats[i].name+'">'+json.meats[i].name;
                 if(json.meats[i].name.indexOf("Beef") > -1){
-                    html += '<br><img class = "MenuPics" src="img/Beef.png">';
+                    html += '<img class = "MenuPics" src="img/Beef.png">';
                 }
                 else{
-                    html+= '<br><img class = "MenuPics" src="img/' + json.meats[i].name + '.png">';
+                    html+= '<img class = "MenuPics" src="img/' + json.meats[i].name + '.png">';
                 }
-		meatPrices.push(json.meats[i].price);
+		meatPrices.push(temp);
 	}
 	document.getElementById("meats").innerHTML = html;
 }
@@ -229,3 +237,24 @@ function selectSauces(){
 }
 
 document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
+document.getElementById("tax").innerHTML = "Tax(8%): $" + tax;
+document.getElementById("subtotal").innerHTML = "SubTotal: $" +subTotal;
+
+function addPrice(){
+    var meat = document.getElementById("meat");
+    var bread = document.getElementById("bread");
+    var cheese = document.getElementById("cheese");
+    //var toppings = document.getElementBySomething;
+    var sauce = document.getElementById("sauce");
+    for(var i = 0; i < meatPrices.length; i++){
+        if(meat == meatPrice[i])
+    }
+}
+
+function getPreviousOrder(){
+    
+}
+
+function pay(){
+    
+}

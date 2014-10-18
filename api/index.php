@@ -157,34 +157,42 @@ $app->get('/getSides', function () {
 
 $app->get('/getLastOrder/:userID', function ($id) { //currently untested
     global $mysqli;
-    $orderList=$mysqli->query("SELECT idOrder FROM BurgerOrder WHERE id=".$id);
-    $largestID=0;
-    for($i=0; $i<sizeOf($orderList); $i++){ //find the most recent order
-        if($orderList[$i]>$largestID){
-            $largestID=$orderList[$i];
-        }
-    }
-    //get list of burgers in the most recent order and create list of components of each burger
+    $orderQuery=$mysqli->query("SELECT idOrder FROM BurgerOrder WHERE User_idUser = '$id' ORDER BY idOrder DESC LIMIT 1");
+    $largestID=$orderQuery->fetch_assoc();
+    //echo "largest = ".$largestID['idOrder'];
+   
     $burgerSet=array();
-    $burgerList=$mysqli->query("SELECT idBurger FROM Burger Where BurgerOrder_idOrder = " . $largestID);
-    for($i=0; $i<sizeOf($burgerList); $i++){
-        $theQuery="SELECT BurgerComponent_idBurgerComponent FROM Burger_has_BurgerComponent WHERE Burger_idBurger=".$burgerList[$i];
-        $burgerComp=$mysqli->query($theQuery);
-        array_push($burgerSet, $burgerComp);
+    //get list of burgers in the most recent order and create list of components of each burger
+    $burgerList=$mysqli->query("SELECT idBurger FROM Burger Where BurgerOrder_idOrder = '".$largestID['idOrder']."'");
+    $counter=1;
+    while(true){
+        $burger=$burgerList->fetch_assoc();
+        
+        if($burger===NULL)  //break if no more rows
+            break;
+
+        //echo "->".$burger['idBurger'];
+        $compQuery="SELECT BurgerComponent_idBurgerComponent FROM Burger_has_BurgerComponent WHERE Burger_idBurger='" . $burger["idBurger"]."'";
+        $compList=$mysqli->query($compQuery);
+        $burgerSubset=array(/*"u_id"=>"component"*/);
+        while(true){
+            $comp = $compList->fetch_assoc();  //break if no more rows
+            if($comp===NULL)
+                break;
+            $nameQuery=$mysqli->query("SELECT componentName FROM BurgerComponent WHERE idBurgerComponent='".$comp["BurgerComponent_idBurgerComponent"]."'");
+            $name=$nameQuery->fetch_assoc();
+            //echo "(".$name['componentName'].")";
+           array_push($burgerSubset, $name['componentName']);
+        }
+        $quantityQuery=$mysqli->query("SELECT quantity FROM Burger WHERE idBurger='" . $burger["idBurger"]."'");
+        $quantity=$quantityQuery->fetch_assoc();
+        //echo "quantity is". $quantity['quantity'];
+        $burgerWrap=array('component'=>$burgerSubset, 'quantity'=>$quantity['quantity']);
+        $burgerSet["$counter"]=$burgerWrap;
+        //echo "    ";
+        $counter+=1;
     }
-    json_encode($burgerSet);
-    /*$componentsForBurger1 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Bacon","French fries");
-    $quantityForBurger1 = 1;
-    $burger1 = array("components"=>$componentsForBurger1,"quantity"=>$quantityForBurger1);
-    $query = "select idOrder from order";
-    $result= mysql_query($query);
-
-    $componentsForBurger2 = array ("1/3 lb. Beef","White","Cheddar","Onions", "Mustard","Mayonnaise","Bacon");
-    $quantityForBurger2 = 5; 
-    $burger2 = array("components"=>$componentsForBurger1,"quantity"=>$quantityForBurger2);
-
-    $burgers = array("1" => $burger1, "2" => $burger2);
-    echo json_encode($burgers);*/
+    echo json_encode($burgerSet);
 });
 
 $app->post('/createUserAccount', function () {
