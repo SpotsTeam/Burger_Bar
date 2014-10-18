@@ -25,7 +25,6 @@ var cheesePrices = new Array();
 var toppingPrices = new Array();
 var saucePrices = new Array();
 var sidePrices = new Array();
-
 var total = 0;
 
 var url = "./api/index.php/getMeats";
@@ -128,6 +127,12 @@ $(document).on('click', '.button', function(){
 
 var meats = document.getElementsByName("meat");
 function selectMeat(){
+	var p;
+	if(document.getElementById("burgerMeat").innerHTML != undefined){
+		var html = document.getElementById("burgerMeat");
+		p = $.parseHTML(html)
+		console.log(p);
+	}
 	for (var i=0; i < meats.length; i++){
 	   if (meats[i].checked){
 	      document.getElementById("burgerMeat").innerHTML = meats[i].value + ': $' + meatPrices[i];
@@ -135,6 +140,7 @@ function selectMeat(){
 	      break;
 	   }
 	}
+	document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
 };
 for (var i = 0; i < meats.length; ++i) {
   var meat = meats[i];
@@ -146,7 +152,7 @@ function selectBun(){
 	for (var i=0; i < buns.length; i++){
 	   if (buns[i].checked){
 	      document.getElementById("burgerBun").innerHTML = buns[i].value + ': $' + bunPrices[i];
-	      total += bunPrices[i];
+	      //total += bunPrices[i];
 	      break;
 	   }
 	}
@@ -161,7 +167,7 @@ function selectCheese(){
 	for (var i=0; i < cheeses.length; i++){
 	   if (cheeses[i].checked){
 	      document.getElementById("burgerCheese").innerHTML = cheeses[i].value + ': $' + cheesePrices[i];
-	      total += cheesePrices[i];
+	      //total += cheesePrices[i];
 	      break;
 	   }
 	}
@@ -176,7 +182,7 @@ function selectSide(){
 	for (var i=0; i < sides.length; i++){
 	   if (sides[i].checked){
 	      document.getElementById("burgerSide").innerHTML = sides[i].value + ': $' + sidePrices[i];
-	      total += sidePrices[i];
+	      //total += sidePrices[i];
 	      break;
 	   }
 	}
@@ -197,7 +203,7 @@ function selectToppings(){
 	for (var i = 0; i < toppings.length; ++i) {
 	  if(toppings[i].checked){
 	  	toppingsSelected.push(toppings[i].value);
-	  	price += toppingPrices[i];
+	  	//price += toppingPrices[i];
 	  }
 	}
 	document.getElementById("burgerToppings").innerHTML = toppingsSelected + ': $' + price;
@@ -215,11 +221,11 @@ function selectSauces(){
 	for (var i = 0; i < sauces.length; ++i) {
 	  if(sauces[i].checked){
 	  	saucesSelected.push(sauces[i].value);
-	  	price += toppingPrices[i];
+	  	//price += toppingPrices[i];
 	  }
 	}
 	document.getElementById("burgerSauces").innerHTML = saucesSelected + ': $' + price;
-	total += price;
+	//total += price;
 }
 
-document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
+//document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
