@@ -198,8 +198,8 @@ function selectMeat(){
 	      break;
 	   }
 	}
-        tax = subTotal*0.08
-            Total = tax + subTotal;
+        tax = Math.round((subTotal*0.08)*100)/100;
+            total = Math.round((tax + subTotal)*100)/100;
             document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
             document.getElementById("tax").innerHTML = "Tax(8%): $" + tax;
             document.getElementById("subtotal").innerHTML = "SubTotal: $" +subTotal;
@@ -218,8 +218,8 @@ function selectBun(){
 	      break;
 	   }
 	}
-        tax = subTotal*0.08
-        Total = tax + subTotal;
+        tax = Math.round((subTotal*0.08)*100)/100;
+        total = Math.round((tax + subTotal)*100)/100;
         document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
         document.getElementById("tax").innerHTML = "Tax(8%): $" + tax;
         document.getElementById("subtotal").innerHTML = "SubTotal: $" +subTotal;
@@ -238,8 +238,8 @@ function selectCheese(){
 	      break;
 	   }
 	}
-        tax = subTotal*0.08
-        Total = tax + subTotal;
+        tax = Math.round((subTotal*0.08)*100)/100;
+        total = Math.round((tax + subTotal)*100)/100;
         document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
         document.getElementById("tax").innerHTML = "Tax(8%): $" + tax;
         document.getElementById("subtotal").innerHTML = "SubTotal: $" +subTotal;
@@ -258,8 +258,8 @@ function selectSide(){
 	      break;
 	   }
 	}
-        tax = subTotal*0.08
-        Total = tax + subTotal;
+        tax = Math.round((subTotal*0.08)*100)/100;
+        total = Math.round((tax + subTotal)*100)/100;
         document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
         document.getElementById("tax").innerHTML = "Tax(8%): $" + tax;
         document.getElementById("subtotal").innerHTML = "SubTotal: $" +subTotal;
@@ -285,8 +285,8 @@ function selectToppings(){
 	}
 	document.getElementById("burgerToppings").innerHTML = toppingsSelected + ': $' + price;
 	subTotal += price;
-        tax = subTotal*0.08
-        Total = tax + subTotal;
+        tax = Math.round((subTotal*0.08)*100)/100;
+        total = Math.round((tax + subTotal)*100)/100;
         document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
         document.getElementById("tax").innerHTML = "Tax(8%): $" + tax;
         document.getElementById("subtotal").innerHTML = "SubTotal: $" +subTotal;
@@ -308,8 +308,8 @@ function selectSauces(){
 	}
 	document.getElementById("burgerSauces").innerHTML = saucesSelected + ': $' + price;
 	subTotal += price;
-        tax = subTotal*0.08
-        Total = tax + subTotal;
+        tax = Math.round((subTotal*0.08)*100)/100;
+        total = Math.round((tax + subTotal)*100)/100;
         document.getElementById("totalPrice").innerHTML = "Total Price: $" + total;
         document.getElementById("tax").innerHTML = "Tax(8%): $" + tax;
         document.getElementById("subtotal").innerHTML = "SubTotal: $" +subTotal;
