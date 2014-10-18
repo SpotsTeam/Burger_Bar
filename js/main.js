@@ -125,18 +125,34 @@ if(request.status === 200){
 
 
 
-$(document).on('click', '.button', function(){ 
-   var bttn = $(this).attr('id'); 
-   if(bttn === "register"){
-		document.getElementById("signInEmail").removeAttribute("required");
-		document.getElementById("signInPass").removeAttribute("required");
+var form = document.getElementById('signInArea');
+document.getElementById('register').onclick = function() {
+	console.log("Registration");
+    //form.action = 'Registration';
+    //form.submit();
+}
+document.getElementById('signInBttn').onclick = function() {
+    form.action = 'SignIn';
+    form.submit();
+}
 
-   } else {
-   		return false;
-   }
-});
 
 
+
+
+//Login
+
+function makeCookie(){
+	url = "./api/index.php/loginUser";
+	var userId;
+	request.open('POST', url, false);
+	request.send();
+	if(request.status === 200){
+	    var json = JSON.parse(request.responseText);
+		userId = json.user_id;
+	}
+	document.cookie = "user_id="+userId;
+}
 
 
 
@@ -247,7 +263,7 @@ function addPrice(){
     //var toppings = document.getElementBySomething;
     var sauce = document.getElementById("sauce");
     for(var i = 0; i < meatPrices.length; i++){
-        if(meat == meatPrice[i])
+        if(meat == meatPrice[i]){}
     }
 }
 
