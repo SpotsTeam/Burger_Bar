@@ -59,8 +59,9 @@ body{
 }
 
 #OrderList{
-     height: 66%;
-    overflow-y:auto;
+    min-height: 400px;
+    min-width: 250px;
+    padding: 20px;
     float: right;
     background-image: url("../img/Paper Background.png")
 }
