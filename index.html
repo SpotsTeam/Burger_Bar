@@ -116,23 +116,50 @@
         </div>    
         
         <div id = "OrderList">
-        <hr>
-        <h2>Orders</h2>
-            <div id = "addedOrders"></div>
-            <h4 id = "burgerMeat"></h4>
-            <h4 id = "burgerBun"></h4>
-            <h4 id = "burgerCheese"></h4>
-            <h4 id = "burgerToppings"></h4>
-            <h4 id = "burgerSauces"></h4>
-            <h4 id = "burgerSide"></h4>
-            <h3 id = "totalPrice"></h3>
-        <hr>
+            <hr>
+            <h2>Orders</h2>
+                <div id = "addedOrders"></div>
+                <h4 id = "burgerMeat"></h4>
+                <h4 id = "burgerBun"></h4>
+                <h4 id = "burgerCheese"></h4>
+                <h4 id = "burgerToppings"></h4>
+                <h4 id = "burgerSauces"></h4>
+                <h4 id = "burgerSide"></h4>
+                <h3 id = "totalPrice"></h3>
+            <hr>
+            <div id="button_div" align="center"> 
+                <a href="#loginScreen" class="pay_button">PayNow</a> 
+                <hr>
+            </div> 
         </div>
         
         <div id = "orderButtons">
             <button class="button" id="orderPrevious" type="button">Order Previous</button>
             <button class="button" id="payOrder" type="button">Pay</button>
         </div>
+
+        
+        <div id="loginScreen"> 
+            <a href="#" class="cancel">&times;</a> 
+            <div class="checkoutPane shadowBoxLight">
+            <form class="userForm" method="POST">
+                <input class="userInput" type="text" name="firstname" placeholder="First Name"><br>
+                <input class="userInput" type="text" name="lastname" placeholder="Last Name"><br>
+                <input class="userInput" type="email" name="email"  placeholder="Email"><br>
+                <input class="userInput" type="text" name="phonenumber" placeholder="Phone Number"><br>
+                <select class="userInput" name = "ccprovider">
+                    <option selected="selected" id="defaultProvider">Credit Card</option>
+                    <option value="Mastercard">Master Card</option>
+                    <option value="American Express">American Express</option>
+                    <option value="Visa">Visa</option>
+                </select><br>
+                <input class="userInput" type="text" name="ccnumber"  placeholder="Credit Card Number"><br>
+                <input class="userInput" type="submit" value="Order">
+            </form>
+        </div>
+        </div> 
+        <div id="cover" > 
+        </div> 
 
 
 
