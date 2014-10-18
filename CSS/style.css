@@ -10,7 +10,7 @@ and open the template in the editor.
 #logo{
     max-width:200px; 
     max-height:200px;
-    
+    background-color: white;
 }
 
 h1{
@@ -55,18 +55,17 @@ body{
 }
 
 #orderButtons{
-    float:right;
+    margin: 2em;
     width: 98%;
     height: 30px;
-    margin: 7px 2px 7px 3px;
     font-size: 20px;
 }
 
 #OrderList{
     min-height: 400px;
     min-width: 250px;
-    padding: 20px;
     float: right;
+    padding: 20px;
     background-image: url("../img/Paper Background.png");
     box-shadow: 8px 8px 8px #888;
 }
